@@ -7,13 +7,13 @@ puppeteer.use(StealthPlugin());
 
 async function startTraffic(proxyUrl) {
     const browser = await puppeteer.launch({
-        headless: false, // Testing mate 'false', pachi 'true' kari shakay
-        args: [
-            `--proxy-server=${proxyUrl}`,
-            '--no-sandbox',
-            '--disable-setuid-sandbox'
-        ]
-    });
+    headless: "new", // GitHub mate aa jaroori chhe
+    args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage' // Memory issue fix karva mate
+    ]
+});
 
     try {
         const page = await browser.newPage();

@@ -18,8 +18,11 @@ jobs:
       with:
         node-version: '18'
 
-    - name: Install dependencies
+    - name: Install Dependencies
       run: npm install
+
+    - name: Install Chrome
+      run: npx puppeteer browsers install chrome
 
     - name: Run Bot
       run: node index.js
