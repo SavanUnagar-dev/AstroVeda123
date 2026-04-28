@@ -1,0 +1,4 @@
+# Proxy list (format: host:port or user:pass@host:port)
+# Example:
+# 192.168.1.1:8080
+# user:password@proxy.example.com:3128
