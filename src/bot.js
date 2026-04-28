@@ -6,12 +6,14 @@ require('dotenv').config();
 puppeteer.use(StealthPlugin());
 
 async function startTraffic(proxyUrl) {
-    const browser = await puppeteer.launch({
-    headless: "new", // GitHub mate aa jaroori chhe
+   const browser = await puppeteer.launch({
+    headless: "new",
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || null, // Linux mate
     args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage' // Memory issue fix karva mate
+        '--disable-dev-shm-usage',
+        '--disable-gpu'
     ]
 });
 
