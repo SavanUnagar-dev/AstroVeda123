@@ -1,7 +1,7 @@
 const { startTraffic } = require('./src/bot');
 
 async function runInfinite() {
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 21; i++) {
         console.log(`--- Visit Number: ${i + 1} ---`);
         
         // Dar vakhat navi proxy levu hoy to ahi list mathi random select kari shakay
