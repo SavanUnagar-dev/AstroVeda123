@@ -15,7 +15,12 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '24'
+
+    - name: Install Chrome
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
 
     - name: Install Dependencies
       run: npm install
@@ -23,7 +28,7 @@ jobs:
     - name: Run Bot
       run: |
         export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-        export PUPPETEER_EXECUTABLE_PATH=$(which google-chrome)
+        export PUPPETEER_EXECUTABLE_PATH=$(which google-chrome-stable)
         node index.js
       env:
         SITE_URL: ${{ secrets.SITE_URL }}
