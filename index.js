@@ -1,15 +1,30 @@
+const { exec } = require('child_process');
 const { startTraffic } = require('./src/bot');
 
-async function runInfinite() {
-    for (let i = 0; i < 21; i++) {
-        console.log(`--- Visit Number: ${i + 1} ---`);
+function rotateVPN() {
+    return new Promise((resolve) => {
+        console.log("Changing IP via Windscribe...");
+        // Pehla disconnect kari ne pachi US sathe jodo
+        exec('"C:\\Program Files\\Windscribe\\windscribe-cli.exe" connect US', (err) => {
+            if (err) console.error("VPN Connect Error:", err);
+            setTimeout(resolve, 15000); // 15 sec wait for connection
+        });
+    });
+}
+
+async function runLoop() {
+    let count = 0;
+    while (true) {
+        // Dar 2 visit pachi IP badlo jethi safe rahe
+        if (count % 2 === 0) {
+            await rotateVPN();
+        }
         
-        await startTraffic(null); // Proxy નથી વાપરવો તો null પાસ કર
-        
-        const waitTime = Math.floor(Math.random() * (60000 - 30000) + 30000);
-        console.log(`Waiting for ${waitTime/1000}s before next visit...`);
-        await new Promise(r => setTimeout(r, waitTime));
+        await startTraffic();
+        count++;
+        console.log(`Total Visits: ${count}. Next visit in 10s...`);
+        await new Promise(r => setTimeout(r, 10000));
     }
 }
 
-runInfinite();
+runLoop();
